@@ -15,7 +15,7 @@ function VerifyToken({hash}:{hash: string}) {
         return <p>Verifying...</p>
     }
     
-    //router.push(data?.redirect.includes('login') ? '/' : data?.redirect || '/')
+    router.push(data?.redirect.includes('login') ? '/' : data?.redirect || '/')
 
     return <p>Redirecting...</p>
 }
@@ -35,7 +35,7 @@ function Loginform() {
     })
 
     function onSubmit(values: CreateUserInput) {
-        mutate(values)
+        mutate({ ...values, redirect: router.asPath })
 
     }
 

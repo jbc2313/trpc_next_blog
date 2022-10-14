@@ -112,11 +112,9 @@ async resolve({input, ctx}) {
         redirect: token.redirect
     }
 }
+}).query('me', {
+  resolve({ ctx }) {
+    return ctx.user
+  }
 })
-
-// .query('me', {
-//   resolve({ ctx }) {
-//     return ctx.user
-//   }
-// })
 

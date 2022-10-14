@@ -6,10 +6,17 @@ import { trpc } from '../util/trpc'
 
 const Home: NextPage = () => {
   
-    
+   const { data, error, isLoading } = trpc.useQuery(['users.me']) 
 
-    
-    return <div>{Date.now()}</div>
+   if(isLoading){ 
+        return <div>Loading so here is a clock. Real Time = Epoch Time: {Date.now()}</div>
+   }
+
+   if(error) {
+     return <div>{JSON.stringify(error)}</div>
+   }
+
+   return <div>{JSON.stringify(data)}</div>
 }
 
 export default Home
