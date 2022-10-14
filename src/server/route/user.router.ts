@@ -1,8 +1,12 @@
 import { createRouter } from '../createRouter' 
+import { createUserSchema } from '../../schema/user.schema'
 
-const userRouter = createRouter()
+export const userRouter = createRouter()
 .mutation('register-user', {
-    resolve: async () => {
-    
+    input: createUserSchema,
+    output: 
+    resolve: async ({ctx}) => {
+        ctx.prisma
     }
 })
+
