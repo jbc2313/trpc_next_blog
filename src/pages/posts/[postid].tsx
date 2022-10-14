@@ -1,22 +1,31 @@
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import {trpc} from '../../util/trpc'
 import Error from 'next/error'
 
 const SinglePostPage = () => {
     const router = useRouter()
 
-    const postId = router.query.postId as string
+    const postId = router.query.postid as string
 
-    const {data, isLoading} = trpc.useQuery(['posts.single-post', {postId}])
+    const {data, error, isLoading} = trpc.useQuery(['posts.single-post', {postId}])
 
-
+    
     if(isLoading){
-        return <p>Loading.posts...</p>
+        // Could not figure out why postId was undefined. 
+        // I was using router.query.postId insteat of router.query.postid
+        //console.log('PostID==', postId)
+        //console.log(router.query)
+        return (
+            <div>
+                <p>postID = {postId}</p>
+                <p>Loading.posts...</p>
+            </div>
+        )
     }
 
     if(!data){
-
-       return <Error statusCode={404} />
+        console.log('ERROR', error)
+        return <Error statusCode={404} />
     }
 
     return (

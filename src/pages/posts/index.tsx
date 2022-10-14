@@ -12,7 +12,7 @@ function PostListingPage() {
 
     return (
         <div>
-            {data?.map(post => {
+            {data?.map((post) => {
                 return (
                     <article key={post.id}>
                         <p>{post.title}</p>
