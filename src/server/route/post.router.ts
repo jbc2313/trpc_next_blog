@@ -14,7 +14,7 @@ export const postRouter = createRouter()
     input: createPostSchema,
     async resolve({ ctx, input }) {
         if(!ctx.user){
-            return new trpc.TRPCError({
+            new trpc.TRPCError({
                 code: 'FORBIDDEN',
                 message: 'Please Login before creating a post!',
             })
@@ -25,7 +25,7 @@ export const postRouter = createRouter()
                 ...input,
                 user: {
                     connect: {
-                        id: ctx.user.id,
+                        id: ctx.user?.id,
                     }
                 }
             }
@@ -41,7 +41,7 @@ export const postRouter = createRouter()
 })
 .query('single-post', {
     input: getSinglePostSchema,
-    resolve({ctx, input}) {
+    resolve({input, ctx}) {
         return ctx.prisma.post.findUnique({
             where: {
                 id: input.postId,
